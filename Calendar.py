@@ -16,7 +16,7 @@ from oauth2client.tools import *
 # Written by Marc Poul Joseph Laventure
 
 FLAGS = gflags.FLAGS
-WORDS = ["Calendar", "Events", "Check", "My"]
+WORDS = ["Calendar", "Events", "Check", "My", "WHAT'S", "WHAT'S", "ON"]
 client_id = '838713519247-e8ruaheudf81d1jv4tjdfa9gla6ak39t.apps.googleusercontent.com'
 client_secret = 'Y0DUWPvLF9BsLMgi13nllWPM'
 
@@ -178,7 +178,7 @@ def getEventsTomorrow(profile, mic):
     utcString = m.group(0)
     tomorrowStartTime = str(d.strftime("%Y-%m-%d")) + "T00:00:00" + utcString
     tomorrowEndTime = str(d.strftime("%Y-%m-%d")) + "T23:59:59" + utcString
-
+    x = 0
     page_token = None
 
     GCIntros = ["Alrighty so Matty for your google calendar tomorrow you have",
@@ -335,4 +335,4 @@ def handle(text, mic, profile):
 
 
 def isValid(text):
-    return bool(re.search(r'\bCalendar\b', text, re.IGNORECASE))
+    return bool(re.search(r'\bCalendar\b', text, re.IGNORECASE)) or bool(re.search(r"\bwhat's on\b", text, re.IGNORECASE))
