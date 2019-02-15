@@ -51,19 +51,29 @@ def getEventsToday(profile, mic):
     todayStartTime = str(d.strftime("%Y-%m-%d")) + "T00:00:00" + utcString
     todayEndTime = str(d.strftime("%Y-%m-%d")) + "T23:59:59" + utcString
     page_token = None
-
+    x = 0
     GCIntros = ["ah ok so Matt for your google calendar you have",
                 "Matt your google calendar is telling me that you have",
                 "Today your google calendar has for you",
                 "Ok today we have on your google calendar"
                 "ah ok so Carter for your google calendar you have",
                 "Carter your google calendar is telling me that you have",]
-    FCIntros = ["and from your facebook calendar matt you have",
-                "Matt the facebook calendar also tells me that you have",
-                "ah ok so Carter in addition on your facebook calendar you have",
-                "Carter the facebook calendar is also telling me that you have",
-                "Today your facebook calendar has for you",
-                "Ok today we have on your facebook calendar"]
+    FCIntros = ["and for your facebook calendar tomorrow you have",
+                "your facebook calendar also is telling me that tomorrow you have",
+                " and tomorrow your facebook calendar has for you",
+                ".. Ok tomorrow we also have on your facebook calendar",
+                "and for your facebook calendar tomorrow you have",
+                "also your facebook calendar is telling me that tomorrow you have"]
+    EmptyResponses = ["sink a couple cold ones champ",
+                "hit the library loser",
+                "please look at my code I feel like poo",
+                "maybe lay of the tav",
+                "hit the bread water cuck", 
+                "grab a cold on champ",
+                "hit the books loser",
+                "please tweak me I feel like shit",
+                "maybe lay of the beers",
+                "hit the beers pussy"]
     GCIntro = random.choice(GCIntros)
     mic.say(GCIntro)
 
@@ -76,14 +86,7 @@ def getEventsToday(profile, mic):
 
         if (len(events['items']) == 0):
             mic.say("no events scheduled")
-            GCEmptyResponses = ["grab a cold on champ",
-                                "hit the books loser",
-                                "please tweak me I feel like shit",
-                                "maybe lay of the beers",
-                                "hit the beers pussy"]
-            GCEmptyResponse = random.choice(GCEmptyResponses)
-            mic.say(GCEmptyResponse)
-
+            x += 1
             break
 
         for event in events['items']:
@@ -126,13 +129,9 @@ def getEventsToday(profile, mic):
 
         if (len(events['items']) == 0):
             mic.say("no events scheduled")
-            FCEmptyResponses = ["sink a couple cold ones champ",
-                                "hit the library loser",
-                                "please look at my code I feel like poo",
-                                "maybe lay of the tav",
-                                "hit the bread water cuck"]
-            FCEmptyResponse = random.choice(FCEmptyResponses)
-            mic.say(FCEmptyResponse)
+            if x == 1: 
+                EmptyResponse = random.choice(EmptyResponses)
+                mic.say(EmptyResponse)
             return
 
         for event in events['items']:
@@ -185,9 +184,15 @@ def getEventsTomorrow(profile, mic):
     GCIntros = ["Alrighty so Matty for your google calendar tomorrow you have",
                 "Matt your google calendar is telling me that tomorrow you have",
                 "Tomorrow your google calendar has for you",
-                "Ok tomorrow we have on your google calendar"
+                "Ok tomorrow we have on your google calendar",
                 "Alrighty so Carter for your google calendar tomorrow you have",
                 "Carter your google calendar is telling me that tomorrow you have"]
+    FCIntros = ["and for your facebook calendar tomorrow you have",
+                "your facebook calendar also is telling me that tomorrow you have",
+                " and tomorrow your facebook calendar has for you",
+                ".. Ok tomorrow we also have on your facebook calendar",
+                "and for your facebook calendar tomorrow you have",
+                "also your facebook calendar is telling me that tomorrow you have"]
     GCIntro = random.choice(GCIntros)
     mic.say(GCIntro)
 
@@ -199,13 +204,7 @@ def getEventsTomorrow(profile, mic):
                                        timeMax=tomorrowEndTime).execute()
         if (len(events['items']) == 0):
             mic.say("no events scheduled")
-            GCEmptyResponses = ["grab a cold on ay",
-                                "hit the books loser, it'll help",
-                                "please peak under the hood I feel like shit",
-                                "maybe drink a little less",
-                                "hit the beers pussy"]
-            GCEmptyResponse = random.choice(GCEmptyResponses)
-            mic.say(GCEmptyResponse)
+            x += 1
             break
 
         for event in events['items']:
@@ -237,12 +236,7 @@ def getEventsTomorrow(profile, mic):
         if not page_token:
             break
 
-    FCIntros = ["alrighty so Matty for your google calendar tomorrow you have",
-                "Matt your google calendar is telling me that tomorrow you have",
-                "Tomorrow your google calendar has for you",
-                "Ok tomorrow we have on your google calendar"
-                "alrighty so Carter for your google calendar tomorrow you have",
-                "Carter your google calendar is telling me that tomorrow you have"]
+
     FCIntro = random.choice(FCIntros)
     mic.say(FCIntro)
 
@@ -253,14 +247,10 @@ def getEventsTomorrow(profile, mic):
         events = service.events().list(calendarId='muoqenhe7pqvh6eu9t96tnl0mrma6g2h@import.calendar.google.com', pageToken=page_token, timeMin=tomorrowStartTime,
                                        timeMax=tomorrowEndTime).execute()
         if (len(events['items']) == 0):
-            mic.say("no events scheduled")
-            FCEmptyResponses = ["sink a couple cold ones champ",
-                                "hit the library loser",
-                                "please look at my code I feel like poo",
-                                "maybe lay of the tav",
-                                "hit the bread water cuck"]
-            FCEmptyResponse = random.choice(FCEmptyResponses)
-            mic.say(FCEmptyResponse)
+            mic.say("nothing scheduled")
+            if x == 1: 
+                EmptyResponse = random.choice(EmptyResponses)
+                mic.say(EmptyResponse)
             return
 
         for event in events['items']:
