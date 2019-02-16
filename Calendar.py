@@ -193,6 +193,16 @@ def getEventsTomorrow(profile, mic):
                 ".. Ok tomorrow we also have on your facebook calendar",
                 "and for your facebook calendar tomorrow you have",
                 "also your facebook calendar is telling me that tomorrow you have"]
+    EmptyResponses = ["sink a couple cold ones champ",
+                "hit the library loser",
+                "please look at my code I feel like poo",
+                "maybe lay of the tav",
+                "hit the bread water cuck", 
+                "grab a cold on champ",
+                "hit the books loser",
+                "please tweak me I feel like shit",
+                "maybe lay of the beers",
+                "hit the beers pussy"]
     GCIntro = random.choice(GCIntros)
     mic.say(GCIntro)
 
