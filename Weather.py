@@ -5,6 +5,7 @@ import re
 from lxml import html
 import random
 
+WORDS = ["WEATHER", "OUTSIDE"]
 
 def getCurrentWeather(url, mic):
     headers = {'User-agent': 'wswp'}
